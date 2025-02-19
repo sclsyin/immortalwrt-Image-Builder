@@ -35,7 +35,7 @@ jobs:
 
     - name: Set Image Builder root directory
       run: |
-        ROOT_DIRECTORY=$(basename $DOWNLOAD_URL .tar.xz)
+        ROOT_DIRECTORY=$(basename $DOWNLOAD_URL .tar.zst)
         echo "ROOT_DIRECTORY=/tmp/$ROOT_DIRECTORY" >> $GITHUB_ENV
 
     - name: Modify .config file
