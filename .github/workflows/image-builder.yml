@@ -5,10 +5,11 @@ on:
   workflow_dispatch:
 
 env:
-  PROFILE: generic
+  PROFILE: X86-64
   UCI_CUSTOM_FILE: uci-custom
   PACKAGES_LIST_FILE: packages.list
   PACKAGES_FOLDER: packages
+  KERNEL_PARTSIZE: 300
   ROOTFS_PARTSIZE: 2048   
   DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.0/targets/x86/64/immortalwrt-imagebuilder-24.10.0-x86-64.Linux-x86_64.tar.zst
   TZ: Asia/Shanghai
@@ -48,8 +49,9 @@ jobs:
         # sudo sed -i 's/^CONFIG_VMDK_IMAGES=y/# CONFIG_VMDK_IMAGES is not set/' $CONFIG_FILE
         sudo sed -i 's/^CONFIG_VHDX_IMAGES=y/# CONFIG_VHDX_IMAGES is not set/' $CONFIG_FILE
         # Reconfigure the rootfs partition size (for x86 build only)
-        if [ -n "${{ env.ROOTFS_PARTSIZE }}" ] && [ "${{ env.PROFILE }}" = "generic" ]; then
+        if [ -n "${{ env.ROOTFS_PARTSIZE }}" ] && [ "${{ env.PROFILE }}" = "X86-64" ]; then
           sudo sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE=.*/CONFIG_TARGET_ROOTFS_PARTSIZE=${{ env.ROOTFS_PARTSIZE }}/g' $CONFIG_FILE
+          sudo sed -i 's/CONFIG_TARGET_KERNEL_PARTSIZE=.*/CONFIG_TARGET_KERNEL_PARTSIZE=${{ env.KERNEL_PARTSIZE }}/g' $CONFIG_FILE
         fi
 
     - name: Copy files
@@ -79,6 +81,31 @@ jobs:
       with:
         name: ImmortalWrt-firmware-${{ env.PROFILE }}-${{ env.FILE_DATE }}
         path: /tmp/bin_firmware
+
+    - name: Generate release tag
+      id: tag
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        touch release.txt
+        [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
+        echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: Upload firmware to release
+      uses: sclsyin/action-gh-release@master
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body: |
+          **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }} HomeProxy Version 24.10**
+          ### 📒 固件信息
+          - 💻 平台架构: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
+          - ⚽ 固件源码: ${{ env.REPO_URL }}
+          - 💝 源码分支: ${{ env.REPO_BRANCH }}
+          - 🚀 内核版本: ${{ env.KERNEL }}
+          - 🌐 默认地址: 192.168.2.1
+          - 🔑 默认密码: 空密码
+        files: ${{ env.FIRMWARE }}/*
+
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
