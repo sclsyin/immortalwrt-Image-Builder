@@ -6,7 +6,7 @@ Use Github Action for a easier way to compile firmwares with Image Builder.
 ## Usage
 
 - Click the [Use this template](https://github.com/noviachen/Image-Builder/generate) button to create a new repository.
-- By default, ImmortalWrt 23.05.3 (r27917-81a1f98d5b) is used. To change it, modify the `DOWNLOAD_URL` in `.github/workflows/image-builder.yml`. May also be applicable for compiling the official OpenWrt version (untested).
+- By default, ImmortalWrt 24.10(r32824-6a73dae98c9c) is used. To change it, modify the `DOWNLOAD_URL` in `.github/workflows/image-builder.yml`. May also be applicable for compiling the official OpenWrt version (untested).
 - Modify the `PROFILE` in image-builder.yml according to your device.
 - Modify `uci-custom` (first boot script) and `packages.list` (to add or remove packages) as needed.
 - Upload other ipk files to the `packages` folder (if any).
