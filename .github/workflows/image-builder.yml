@@ -1,4 +1,4 @@
-name: ImmortalWrt Image Builder
+name: Build ImmortalWrt 24.10 X86-X64
 on:
   push:
     branches: [ "master" ]
@@ -86,13 +86,14 @@ jobs:
       run: |
         cd /tmp/bin_firmware
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "KERNEL=$(cat *.manifest | grep ^kernel | cut -d- -f2 | tr -d ' ')" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
         
     - name: Upload firmware
       uses: actions/upload-artifact@v4
       with:
         name: ImmortalWrt-firmware-${{ env.PROFILE }}-${{ env.FILE_DATE }}
-        path: /tmp/bin_firmware
+        path: ${{ env.FIRMWARE }}
 
     - name: Generate release tag
       id: tag
@@ -110,6 +111,10 @@ jobs:
         body: |
           **This is OpenWrt Firmware for X86-64 HomeProxy Version 24.10**
           ### 📒 固件信息
+          - 💻 平台架构: X86-64
+          - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
+          - 💝 源码分支: openwrt-24.10
+          - 🚀 内核版本: ${{ env.KERNEL }}
           - 🌐 默认地址: 192.168.2.1
           - 🔑 默认密码: 空密码
         files: ${{ env.FIRMWARE }}/*
