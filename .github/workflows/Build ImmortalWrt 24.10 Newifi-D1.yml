@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
 
 env:
-  PROFILE: ramips_mt7621
+  PROFILE: DEVICE_lenovo_newifi-d1
   UCI_CUSTOM_FILE: ramips/newifi-d1/24.10/uci-custom
   PACKAGES_LIST_FILE: ramips/newifi-d1/24.10/packages.list
   PACKAGES_FOLDER: ramips/newifi-d1/24.10/packages
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  KERNEL_PARTSIZE: 300
-  ROOTFS_PARTSIZE: 2048   
+  # KERNEL_PARTSIZE: 300
+  # ROOTFS_PARTSIZE: 2048   
   DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.0/targets/ramips/mt7621/immortalwrt-imagebuilder-24.10.0-ramips-mt7621.Linux-x86_64.tar.zst
   TZ: Asia/Shanghai
 
