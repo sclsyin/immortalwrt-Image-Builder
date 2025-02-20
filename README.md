@@ -1,4 +1,3 @@
-English | [中文](https://noviachen.github.io/posts/fcde2f81.html)
 
 # Image Builder
 
