@@ -9,6 +9,7 @@ env:
   UCI_CUSTOM_FILE: uci-custom
   PACKAGES_LIST_FILE: packages.list
   PACKAGES_FOLDER: packages
+  UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   KERNEL_PARTSIZE: 300
   ROOTFS_PARTSIZE: 2048   
@@ -79,6 +80,14 @@ jobs:
         sudo mkdir -p /tmp/bin_firmware
         sudo find bin -type f -exec sudo cp {} /tmp/bin_firmware/ \;
 
+    - name: Organize files
+      id: organize
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      run: |
+        cd /tmp/bin_firmware
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
+        
     - name: Upload firmware
       uses: actions/upload-artifact@v4
       with:
@@ -95,7 +104,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release
-      uses: sclsyin/action-gh-release@master
+      uses: softprops/action-gh-release@master
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body: |
