@@ -1,28 +1,16 @@
+**基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt)*源码和*[ImmortalWrt Image Builder](https://github.com/1715173329/blog/issues/8)，快速编译适用于X86-64平台和Newifi D1的固件.
 
-# Image Builder
+**固件集成以下插件:**
+*************************************************
+**系统**\
+Diskman\
+**服务**\
+Homeproxy,微信推送,Watchcat,网络唤醒,广告拦截软,DDNS-Go\
 
-Use Github Action for a easier way to compile firmwares with Image Builder.
+*************************************************
+**支持IPV6**
 
-## Usage
 
-- Click the [Use this template](https://github.com/noviachen/Image-Builder/generate) button to create a new repository.
-- By default, ImmortalWrt 24.10(r32824-6a73dae98c9c) is used. To change it, modify the `DOWNLOAD_URL` in `.github/workflows/image-builder.yml`. May also be applicable for compiling the official OpenWrt version (untested).
-- Modify the `PROFILE` in image-builder.yml according to your device.
-- Modify `uci-custom` (first boot script) and `packages.list` (to add or remove packages) as needed.
-- Upload other ipk files to the `packages` folder (if any).
-- Select `ImmortalWrt Image Builder` on the Actions page.
-- Click the `Run workflow` button.
-- When the build is completed, click the file links under `Artifacts` to download the firmwares.
-
-## Thanks
-
-- [GitHub Actions](https://github.com/features/actions)
-- [OpenWrt](https://github.com/openwrt/openwrt)
-- [Project ImmortalWrt](https://github.com/immortalwrt/immortalwrt)
-
-## Reference
-
-[ImmortalWrt Image Builder 使用说明](https://github.com/1715173329/blog/issues/8)
 
 ## License
 
