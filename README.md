@@ -1,4 +1,4 @@
-**基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt)*源码和*[ImmortalWrt Image Builder](https://github.com/1715173329/blog/issues/8)，快速编译适用于X86-64平台和Newifi D1的固件.
+**基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt)*源码和*[ImmortalWrt Image Builder](https://github.com/1715173329/blog/issues/8)，快速编译适用于X86-64平台和Newifi D1的固件.**
 
 **固件集成以下插件:**
 *************************************************
