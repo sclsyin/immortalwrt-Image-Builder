@@ -117,7 +117,7 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body: |
-          **This is OpenWrt Firmware for X86-64 HomeProxy Version 24.10**
+          **This is OpenWrt Firmware for X86-64 Version 24.10**
           ### 📒 固件信息
           - 💻 平台架构: X86-64
           - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
