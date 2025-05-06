@@ -16,7 +16,6 @@ luci-app-watchcat
 luci-i18n-watchcat-zh-cn
 luci-app-wol
 luci-i18n-wol-zh-cn
-vlmcsd
 luci-app-vlmcsd
 luci-i18n-vlmcsd-zh-cn
 luci-app-cifs-mount
