@@ -20,6 +20,6 @@ luci-app-vlmcsd
 luci-i18n-vlmcsd-zh-cn
 luci-app-cifs-mount
 luci-i18n-cifs-mount-zh-cn
-luci-app-uhttpd
-luci-i18n-uhttpd-zh-cn
+luci-nginx
+uwsgi-luci-support	
 qemu-ga
