@@ -18,8 +18,6 @@ luci-app-wol
 luci-i18n-wol-zh-cn
 luci-app-vlmcsd
 luci-i18n-vlmcsd-zh-cn
-luci-app-cifs-mount
-luci-i18n-cifs-mount-zh-cn
 luci-nginx
 uwsgi-luci-support	
 qemu-ga
