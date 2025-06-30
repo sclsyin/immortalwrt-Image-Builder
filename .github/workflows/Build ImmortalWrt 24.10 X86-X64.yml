@@ -1,4 +1,4 @@
-name: Build ImmortalWrt 24.10.1 X86-X64
+name: Build ImmortalWrt 24.10.2 X86-X64
 on:
   push:
     branches: [ "master" ]
@@ -13,7 +13,7 @@ env:
   UPLOAD_RELEASE: true
   KERNEL_PARTSIZE: 300
   ROOTFS_PARTSIZE: 2048   
-  DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.1/targets/x86/64/immortalwrt-imagebuilder-24.10.1-x86-64.Linux-x86_64.tar.zst
+  DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.2/targets/x86/64/immortalwrt-imagebuilder-24.10.2-x86-64.Linux-x86_64.tar.zst
   TZ: Asia/Shanghai
 
 jobs:
@@ -119,7 +119,7 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body: |
-          **This is OpenWrt Firmware for X86-64 Version 24.10.1**
+          **This is OpenWrt Firmware for X86-64 Version 24.10.2**
           ### 📒 固件信息
           - 💻 平台架构: X86-64
           - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
