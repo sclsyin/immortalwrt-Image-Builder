@@ -123,7 +123,7 @@ jobs:
           ### 📒 固件信息
           - 💻 平台架构: X86-64
           - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
-          - 💝 源码分支: openwrt-24.10.1
+          - 💝 源码分支: openwrt-24.10.3
           - 🚀 内核版本: ${{ env.KERNEL }}
           - 🌐 默认地址: 192.168.2.1
           - 🔑 默认密码: 空密码
