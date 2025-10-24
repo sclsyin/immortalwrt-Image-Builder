@@ -77,7 +77,7 @@ jobs:
         # Copy packages list
         sudo cp $PACKAGES_LIST_FILE $ROOT_DIRECTORY/files/packages.list
         # Copy ipk files
-        sudo cp $PACKAGES_FOLDER/*.ipk $ROOT_DIRECTORY/packages
+        # sudo cp $PACKAGES_FOLDER/*.ipk $ROOT_DIRECTORY/packages
 
     - name: Compile firmware
       run: |
