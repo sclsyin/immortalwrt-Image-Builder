@@ -1,4 +1,4 @@
-name: Build ImmortalWrt 24.10.3 Newifi-D1
+name: Build ImmortalWrt 24.10.4 Newifi-D1
 on:
   push:
     branches: [ "master" ]
@@ -11,7 +11,7 @@ env:
   PACKAGES_FOLDER: ramips/newifi-d1/24.10/packages
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.3/targets/ramips/mt7621/immortalwrt-imagebuilder-24.10.3-ramips-mt7621.Linux-x86_64.tar.zst
+  DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.4/targets/ramips/mt7621/immortalwrt-imagebuilder-24.10.4-ramips-mt7621.Linux-x86_64.tar.zst
   TZ: Asia/Shanghai
 
 jobs:
@@ -103,11 +103,11 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body: |
-          **This is OpenWrt Firmware for Newifi-D1 Version 24.10.3**
+          **This is OpenWrt Firmware for Newifi-D1 Version 24.10.4**
           ### 📒 固件信息
           - 💻 平台架构: MT7621
           - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
-          - 💝 源码分支: openwrt-24.10.3
+          - 💝 源码分支: openwrt-24.10.4
           - 🚀 内核版本: ${{ env.KERNEL }}
           - 🌐 默认地址: 192.168.2.1
           - 🔑 默认密码: 空密码
