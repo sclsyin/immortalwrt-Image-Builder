@@ -2,6 +2,9 @@ luci-i18n-package-manager-zh-cn
 luci-i18n-firewall-zh-cn
 luci-app-diskman
 luci-i18n-diskman-zh-cn
+luci-app-homeproxy
+luci-i18n-homeproxy-zh-cn
+nano-plus
 tcpdump-mini
 luci-app-adblock
 luci-i18n-adblock-zh-cn
