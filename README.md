@@ -5,7 +5,11 @@
 **系统**\
 Diskman\
 **服务**\
-微信推送,Watchcat,网络唤醒,DDNS-Go,KMS
+Homeproxy,微信推送,Watchcat,网络唤醒,Adblock,DDNS-Go,uHTTPd,KMS\
+**网络存储**\
+USB 打印服务器\
+**VPN**\
+OpenVPN\
 
 *************************************************
 **支持IPV6**
