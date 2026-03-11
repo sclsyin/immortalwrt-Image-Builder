@@ -24,3 +24,8 @@ luci-i18n-vlmcsd-zh-cn
 luci-app-uhttpd
 luci-i18n-uhttpd-zh-cn
 qemu-ga
+luci-app-usb-printer
+luci-i18n-usb-printer-zh-cn
+openvpn-openssl
+luci-app-openvpn
+luci-i18n-openvpn-zh-cn
