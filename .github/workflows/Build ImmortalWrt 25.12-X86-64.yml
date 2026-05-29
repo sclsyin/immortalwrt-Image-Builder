@@ -7,8 +7,8 @@ on:
 env:
   PROFILE: generic
   UCI_CUSTOM_FILE: X86-64/24.10/uci-custom
-  PACKAGES_LIST_FILE: X86-64/24.10/packages.list
-  PACKAGES_FOLDER: X86-64/24.10/packages
+  PACKAGES_LIST_FILE: X86-64/25.12/packages.list
+  PACKAGES_FOLDER: X86-64/25.12/packages
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   KERNEL_PARTSIZE: 300
