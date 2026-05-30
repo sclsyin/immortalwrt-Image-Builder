@@ -1,3 +1,5 @@
+luci-i18n-package-manager-zh-cn
+luci-i18n-firewall-zh-cn
 luci-app-diskman
 luci-i18n-diskman-zh-cn
 nano-plus
@@ -17,5 +19,9 @@ luci-app-wol
 luci-i18n-wol-zh-cn
 luci-app-vlmcsd
 luci-i18n-vlmcsd-zh-cn
+luci-app-uhttpd
+luci-i18n-uhttpd-zh-cn
 qemu-ga
-
+openvpn-openssl
+luci-app-openvpn
+luci-i18n-openvpn-zh-cn
