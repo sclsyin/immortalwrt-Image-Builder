@@ -1,9 +1,5 @@
-luci-i18n-package-manager-zh-cn
-luci-i18n-firewall-zh-cn
 luci-app-diskman
 luci-i18n-diskman-zh-cn
-luci-app-homeproxy
-luci-i18n-homeproxy-zh-cn
 nano-plus
 tcpdump-mini
 luci-app-adblock
@@ -21,11 +17,5 @@ luci-app-wol
 luci-i18n-wol-zh-cn
 luci-app-vlmcsd
 luci-i18n-vlmcsd-zh-cn
-luci-app-uhttpd
-luci-i18n-uhttpd-zh-cn
 qemu-ga
-luci-app-usb-printer
-luci-i18n-usb-printer-zh-cn
-openvpn-openssl
-luci-app-openvpn
-luci-i18n-openvpn-zh-cn
+
