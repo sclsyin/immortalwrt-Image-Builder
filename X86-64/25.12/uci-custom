@@ -29,7 +29,9 @@ if [[ -n "$lan_ip_address" ]]; then
   uci set network.@device[0].type='bridge'
   uci set network.@device[0].ports='eth1 eth2 eth3'
   uci set network.lan.ipaddr="$lan_ip_address"
+  uci set network.lan.netmask='255.255.255.0'
   uci set network.wan.device='eth0'
+  uci del network.wan6
   uci commit network
 fi
  
