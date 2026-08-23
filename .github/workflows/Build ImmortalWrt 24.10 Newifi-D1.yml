@@ -1,0 +1,121 @@
+name: Build ImmortalWrt 24.10.4 Newifi-D1
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+env:
+  PROFILE: DEVICE_lenovo_newifi-d1
+  UCI_CUSTOM_FILE: ramips/newifi-d1/24.10/uci-custom
+  PACKAGES_LIST_FILE: ramips/newifi-d1/24.10/packages.list
+  PACKAGES_FOLDER: ramips/newifi-d1/24.10/packages
+  UPLOAD_FIRMWARE: true
+  UPLOAD_RELEASE: true
+  DOWNLOAD_URL: https://downloads.immortalwrt.org/releases/24.10.4/targets/ramips/mt7621/immortalwrt-imagebuilder-24.10.4-ramips-mt7621.Linux-x86_64.tar.zst
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Free up disk space complete
+      run: |
+        echo "Free up disk space complete"
+        echo "=============================================================================="
+        df -hT
+        free
+        echo "=============================================================================="
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc wget unzip python3 qemu-utils genisoimage
+
+    - name: Download and extract Image Builder
+      run: |
+        wget -O /tmp/imagebuilder.tar.xz $DOWNLOAD_URL
+        sudo tar -C /tmp -xvf /tmp/imagebuilder.tar.xz
+
+    - name: Set Image Builder root directory
+      run: |
+        ROOT_DIRECTORY=$(basename $DOWNLOAD_URL .tar.zst)
+        echo "ROOT_DIRECTORY=/tmp/$ROOT_DIRECTORY" >> $GITHUB_ENV
+
+    - name: Modify .config file
+      run: |
+        CONFIG_FILE="$ROOT_DIRECTORY/.config"
+
+    - name: Copy files
+      run: |
+        # Creator folders
+        sudo mkdir -p $ROOT_DIRECTORY/files/etc/uci-defaults
+        sudo mkdir -p $ROOT_DIRECTORY/packages
+        # Copy custom setting file
+        sudo cp $UCI_CUSTOM_FILE $ROOT_DIRECTORY/files/etc/uci-defaults
+        # Copy packages list
+        sudo cp $PACKAGES_LIST_FILE $ROOT_DIRECTORY/files/packages.list
+        # Copy ipk files
+        # sudo cp $PACKAGES_FOLDER/*.ipk $ROOT_DIRECTORY/packages
+
+    - name: Compile firmware
+      run: |
+        cd $ROOT_DIRECTORY
+        PACKAGES=$(cat $ROOT_DIRECTORY/files/packages.list | tr '\n' ' ')
+        sudo make image PROFILE="$PROFILE" PACKAGES="$PACKAGES" FILES="files"
+        echo "status=success" >> $GITHUB_OUTPUT
+        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        # Organize files
+        sudo mkdir -p /tmp/bin_firmware
+        sudo find bin -type f -exec sudo cp {} /tmp/bin_firmware/ \;
+
+    - name: Organize files
+      id: organize
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      run: |
+        cd /tmp/bin_firmware
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "KERNEL=$(cat *.manifest | grep ^kernel | cut -d- -f2 | tr -d ' ')" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
+        
+    - name: Upload firmware
+      uses: actions/upload-artifact@v7
+      with:
+        name: ImmortalWrt-firmware-${{ env.PROFILE }}-${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: Generate release tag
+      id: tag
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=Newifi-D1-Router-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        touch release.txt
+        [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
+        echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body: |
+          **This is OpenWrt Firmware for Newifi-D1 Version 24.10.4**
+          ### 📒 固件信息
+          - 💻 平台架构: MT7621
+          - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
+          - 💝 源码分支: openwrt-24.10.4
+          - 🚀 内核版本: ${{ env.KERNEL }}
+          - 🌐 默认地址: 192.168.2.1
+          - 🔑 默认密码: 空密码
+        files: ${{ env.FIRMWARE }}/*
+
+
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 0
+        keep_minimum_runs: 2
