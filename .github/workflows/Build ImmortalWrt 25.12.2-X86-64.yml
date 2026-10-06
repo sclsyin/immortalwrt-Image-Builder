@@ -1,4 +1,4 @@
-name: Build ImmortalWrt 25.12.1 X86-X64
+name: Build ImmortalWrt 25.12.2 X86-X64
 on:
   push:
     branches: [ "master" ]
